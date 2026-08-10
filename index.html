@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Hisaab Manager</title>
+
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+
+        <div>
+            <h1>Hisaab</h1>
+            <p>Customer Work Manager</p>
+        </div>
+
+        <button id="addCustomerBtn" class="primary-btn">
+            + Add Customer
+        </button>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+    <section class="dashboard">
+
+        <div class="stat-card">
+            <span>Total Customers</span>
+            <h2 id="totalCustomers">0</h2>
+        </div>
+
+
+        <div class="stat-card">
+            <span>Total Time</span>
+            <h2 id="totalTime">0h 0m</h2>
+        </div>
+
+
+        <div class="stat-card">
+            <span>Total Money</span>
+            <h2>
+                ₹<span id="totalMoney">0</span>
+            </h2>
+        </div>
+
+    </section>
+
+
+    <!-- MAIN -->
+    <main>
+
+        <div class="section-heading">
+
+            <div>
+                <h2>Customers</h2>
+
+                <p>
+                    Manage customer work and hourly payments
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- CUSTOMER LIST -->
+        <div
+            id="customerList"
+            class="customer-list">
+        </div>
+
+
+        <!-- EMPTY -->
+        <div
+            id="emptyMessage"
+            class="empty">
+
+            <div class="empty-icon">
+                👤
+            </div>
+
+            <h3>No customers yet</h3>
+
+            <p>
+                Add your first customer to start keeping hisaab.
+            </p>
+
+            <button
+                id="emptyAddBtn"
+                class="primary-btn">
+
+                + Add Customer
+
+            </button>
+
+        </div>
+
+    </main>
+
+
+
+    <!-- ============================= -->
+    <!-- CUSTOMER MODAL -->
+    <!-- ============================= -->
+
+    <div
+        id="customerModal"
+        class="modal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Add Customer</h2>
+
+                    <p>
+                        Set customer's hourly rate
+                    </p>
+                </div>
+
+
+                <button
+                    id="closeCustomerModal"
+                    class="close-btn">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <form id="customerForm">
+
+                <label>
+                    Customer Name
+                </label>
+
+                <input
+                    type="text"
+                    id="customerName"
+                    placeholder="Enter customer name"
+                    required
+                >
+
+
+                <label>
+                    Rate Per Hour
+                </label>
+
+                <div class="money-input">
+
+                    <span>₹</span>
+
+                    <input
+                        type="number"
+                        id="hourlyRate"
+                        placeholder="200"
+                        min="0"
+                        step="0.01"
+                        required
+                    >
+
+                    <small>/ hour</small>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn full">
+
+                    Add Customer
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ============================= -->
+    <!-- WORK MODAL -->
+    <!-- ============================= -->
+
+    <div
+        id="workModal"
+        class="modal">
+
+        <div class="modal-box">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2>Add Work</h2>
+
+                    <p id="workCustomerName"></p>
+
+                </div>
+
+
+                <button
+                    id="closeWorkModal"
+                    class="close-btn">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <form id="workForm">
+
+                <label>
+                    Work
+                </label>
+
+                <input
+                    type="text"
+                    id="workName"
+                    placeholder="e.g. Website Design"
+                    required
+                >
+
+
+                <div class="form-row">
+
+                    <div>
+
+                        <label>
+                            Hours
+                        </label>
+
+                        <input
+                            type="number"
+                            id="workHours"
+                            min="0"
+                            value="0"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div>
+
+                        <label>
+                            Minutes
+                        </label>
+
+                        <input
+                            type="number"
+                            id="workMinutes"
+                            min="0"
+                            max="59"
+                            value="0"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <!-- AUTOMATIC CALCULATION -->
+
+                <div class="calculation-box">
+
+                    <div>
+
+                        <span>Hourly Rate</span>
+
+                        <strong>
+                            ₹<span id="previewRate">0</span>
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>Time</span>
+
+                        <strong id="previewTime">
+                            0h 0m
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>Amount</span>
+
+                        <strong class="amount">
+                            ₹<span id="previewAmount">0</span>
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="primary-btn full">
+
+                    Add Work
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ============================= -->
+    <!-- DETAILS MODAL -->
+    <!-- ============================= -->
+
+    <div
+        id="detailsModal"
+        class="modal">
+
+        <div class="modal-box details-box">
+
+            <div class="modal-header">
+
+                <div>
+
+                    <h2 id="detailsCustomerName">
+                        Customer
+                    </h2>
+
+                    <p>
+                        Complete work history
+                    </p>
+
+                </div>
+
+
+                <button
+                    id="closeDetailsModal"
+                    class="close-btn">
+
+                    ×
+
+                </button>
+
+            </div>
+
+
+            <!-- RATE -->
+
+            <div class="rate-display">
+
+                <span>
+                    Hourly Rate
+                </span>
+
+                <strong>
+                    ₹<span id="detailsRate">0</span>/hour
+                </strong>
+
+            </div>
+
+
+            <!-- TOTAL -->
+
+            <div class="customer-total">
+
+                <div>
+
+                    <span>
+                        Total Time
+                    </span>
+
+                    <strong id="detailsTotalTime">
+                        0h 0m
+                    </strong>
+
+                </div>
+
+
+                <div>
+
+                    <span>
+                        Total Money
+                    </span>
+
+                    <strong>
+                        ₹<span id="detailsTotalMoney">
+                            0
+                        </span>
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- WORK LIST -->
+
+            <div
+                id="workList"
+                class="work-list">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
